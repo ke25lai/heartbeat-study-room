@@ -1,0 +1,24 @@
+# ===== 后端 =====
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/backend-run.log
+*.log
+
+# ===== 前端 =====
+frontend/node_modules/
+frontend/dist/
+frontend/.npm-cache/
+
+# ===== 本地配置（含敏感信息，切勿上传）=====
+.env
+.env.*
+
+# ===== WorkBuddy 项目数据（含历史记忆，切勿上传）=====
+.workbuddy/
+
+# ===== IDE / 系统 =====
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

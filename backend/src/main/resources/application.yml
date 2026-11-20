@@ -1,0 +1,31 @@
+server:
+  port: 8090
+  # Tomcat 线程相关（虚拟线程由 spring.threads.virtual.enabled 统一开启）
+
+spring:
+  application:
+    name: heartbeat
+  profiles:
+    active: mysql   # 默认使用本机 MySQL（数据持久化，可用 Navicat 管理）；改回 h2 则无需 MySQL
+  threads:
+    virtual:
+      enabled: true   # Java 21 虚拟线程：Tomcat 请求线程、任务执行器切换为虚拟线程
+  session:
+    timeout: 30m
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      static-locations: classpath:/static/,file:../frontend/dist/
+
+heartbeat:
+  rank:
+    group-by-class: false
+  ws:
+    heartbeat-interval: 30s
+  redis:
+    enabled: true   # 排行榜 ZSet 缓存开关；H2 profile 下关闭
+
+logging:
+  level:
+    com.heartbeat: DEBUG

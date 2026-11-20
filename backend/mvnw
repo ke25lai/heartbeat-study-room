@@ -1,0 +1,10 @@
+#!/bin/sh
+# Maven Wrapper - 无需本地安装 Maven 即可构建
+set -e
+BASE_DIR=$(cd "$(dirname "$0")" && pwd)
+JAR="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
+if [ ! -f "$JAR" ]; then
+  echo "下载 maven-wrapper.jar ..."
+  curl -sSL -o "$JAR" https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.2/maven-wrapper-3.3.2.jar
+fi
+exec java -Dmaven.multiModuleProjectDirectory="$BASE_DIR" -cp "$JAR" org.apache.maven.wrapper.MavenWrapperMain "$@"
