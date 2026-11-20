@@ -10,6 +10,24 @@
 
 多人共处一室、实时看见彼此状态、共同计时、完成后打卡，统计专注时长并排名。核心体验是「**陪伴感 + 可见的专注积累**」。
 
+## ⚡ 快速体验（零配置，推荐面试官/ reviewer）
+
+不想装 MySQL / Redis？用内置的 **H2 内存库** 一键启动，开箱即有演示数据（排行榜、房间、趋势图都非空）：
+
+1. 确认已安装 **JDK 21** 和 **Node.js 18+**
+2. 双击项目根目录的 **`start-demo.bat`**（Windows）
+   - 自动构建后端 jar、安装前端依赖、启动两个服务并打开浏览器
+   - 数据存在内存，**每次重启自动重建**，无需任何数据库配置
+3. 用演示账号登录（密码统一 `demo123`）：
+
+   | 账号 | 密码 | 角色 |
+   |------|------|------|
+   | `demo_zhang` / `demo_alin` / `demo_ming` 等 6 个 | `demo123` | 普通用户（有专注记录/排行榜数据） |
+   | `admin` | `admin123` | 管理员（可体验管理后台） |
+
+> macOS / Linux 用户：在后端目录执行 `mvnw spring-boot:run -Dspring-boot.run.profiles=h2`，前端照常 `npm install && npm run dev`。
+> H2 控制台：http://localhost:8090/h2-console （JDBC URL 填 `jdbc:h2:mem:heartbeat`）。
+
 ## 技术栈
 
 | 层 | 技术 | 亮点 |
@@ -23,9 +41,11 @@
 | 前端 | Vue 3 + TypeScript + Vite + Element Plus + Pinia + ECharts | 移动端 H5 适配 |
 | 工程化 | Docker 多阶段构建 + docker-compose | 一条命令起全栈 |
 
-## 本地运行
+## 本地运行（完整开发模式，MySQL 持久化）
 
-环境要求：**JDK 21**、**Node.js 18+**、**MySQL 8**（或用 H2 内存库免安装）。
+> 只想快速看效果请用上面的「快速体验」。`start-demo.bat` 用 H2 免配置；下面这套用 MySQL 持久化，数据可用 Navicat 管理。
+
+环境要求：**JDK 21**、**Node.js 18+**、**MySQL 8**。
 
 ### 方式一：一键启动（Windows 推荐）
 
@@ -120,7 +140,8 @@ docker compose up --build
 心跳/
 ├── 技术设计文档.md          # 完整设计（19 章，含实习技术演进与 RBAC 权限设计）
 ├── README.md
-├── start.bat                # Windows 一键启动
+├── start.bat                # Windows 一键启动（MySQL 持久化模式）
+├── start-demo.bat           # Windows 零配置体验（H2 内存库 + 演示数据）
 ├── docker-compose.yml       # MySQL + Redis + app 编排
 ├── backend/                 # Spring Boot 后端
 │   ├── mvnw                 # Maven Wrapper（无需本地安装 Maven）
